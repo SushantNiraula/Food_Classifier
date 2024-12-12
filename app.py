@@ -11,15 +11,14 @@ from groq import Groq
 from dotenv import load_dotenv
 load_dotenv()
 
-Define the InferencePipeline class
+# Define the InferencePipeline class
 class InferencePipeline:
     def __init__(self, model_path, model_name):
         self.model = AutoModelForImageClassification.from_pretrained(model_path)
         self.image_processor = AutoImageProcessor.from_pretrained(model_name)
 
     def predict(self, image):
-        image=image.convert("RGB")
-        preprocessed_image = self.image_processor(image, return_tensors="pt",do_convert_rgb=True)["pixel_values"]
+        preprocessed_image = self.image_processor(image, return_tensors="pt")["pixel_values"]
         self.model.eval()
         with torch.no_grad():
             outputs = self.model(preprocessed_image)
