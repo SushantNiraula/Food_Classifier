@@ -35,7 +35,7 @@ class_names = ['biryani', 'boiled_egg', 'caesar_salad', 'chatamari', 'chhoila', 
 def get_nutritional_info(food_item):
     # Initialize the Groq client
     
-    client = Groq()
+    client = Groq('GROQ_API_KEY')
     
     # Send the message to the Llama 70B model to get nutritional info
     completion = client.chat.completions.create(
