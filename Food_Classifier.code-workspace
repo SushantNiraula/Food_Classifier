@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "Food_Classifier",
+			"path": "."
+		},
+		{
+			"name": "test_balanced",
+			"path": "../test_balanced"
+		},
+		{
+			"name": "train_balanced",
+			"path": "../train_balanced"
+		}
+	],
+	"settings": {}
+}
