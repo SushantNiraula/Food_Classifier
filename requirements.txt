@@ -5,3 +5,4 @@ pillow
 joblib
 transformers
 groq
+dot-env
