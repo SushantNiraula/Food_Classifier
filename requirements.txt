@@ -82,7 +82,7 @@ Send2Trash==1.8.3
 sentence-transformers==3.3.1
 
 streamlit==1.39.0
-
+openai
 
 torch==2.4.1
 torchvision==0.19.1
