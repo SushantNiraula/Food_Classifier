@@ -12,17 +12,37 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Define the InferencePipeline class
-class InferencePipeline:
-    def __init__(self, model_path, model_name):
-        self.model = AutoModelForImageClassification.from_pretrained(model_path)
-        self.image_processor = AutoImageProcessor.from_pretrained(model_name)
+# class InferencePipeline:
+#     def __init__(self, model_path, model_name):
+#         self.model = AutoModelForImageClassification.from_pretrained(model_path)
+#         self.image_processor = AutoImageProcessor.from_pretrained(model_name)
 
-    def predict(self, image):
-        preprocessed_image = self.image_processor(image, return_tensors="pt")["pixel_values"]
+#     def predict(self, image):
+#         preprocessed_image = self.image_processor(image, return_tensors="pt")["pixel_values"]
+#         self.model.eval()
+#         with torch.no_grad():
+#             outputs = self.model(preprocessed_image)
+#             predicted_class = outputs.logits.argmax(-1).item()
+#         return predicted_class
+def predict(self, image):
+        # Ensure the image is in the correct format (PIL image)
+        if isinstance(image, Image.Image):
+            # Ensure image is RGB (convert if necessary)
+            image = image.convert("RGB")  # **New change**: Convert image to RGB if not already in RGB format
+        else:
+            raise ValueError("The input image is not in the correct format. Please provide a valid image.")  # **New change**: Check for valid input image format
+
+        # Process the image and convert it to tensor format
+        preprocessed_image = self.image_processor(images=image, return_tensors="pt", do_convert_rgb=True)["pixel_values"]  # **New change**: Explicitly set do_convert_rgb=True
+
+        # Ensure model is in evaluation mode
         self.model.eval()
+
+        # Perform inference without calculating gradients
         with torch.no_grad():
             outputs = self.model(preprocessed_image)
             predicted_class = outputs.logits.argmax(-1).item()
+
         return predicted_class
 
 # Load the inference pipeline from joblib
